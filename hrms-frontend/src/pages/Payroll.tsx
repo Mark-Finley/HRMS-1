@@ -85,7 +85,7 @@ export default function Payroll() {
                 </Typography>
               </Box>
               <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                ₹{totalPayroll.toLocaleString()}
+                GH₵{totalPayroll.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
@@ -174,17 +174,17 @@ export default function Payroll() {
                       <Typography variant="body2">{payroll.employee}</Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Typography variant="body2">₹{payroll.basicSalary.toLocaleString()}</Typography>
+                      <Typography variant="body2">GH₵{payroll.basicSalary.toLocaleString()}</Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Typography variant="body2">₹{payroll.allowances.toLocaleString()}</Typography>
+                      <Typography variant="body2">GH₵{payroll.allowances.toLocaleString()}</Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Typography variant="body2">₹{payroll.deductions.toLocaleString()}</Typography>
+                      <Typography variant="body2">GH₵{payroll.deductions.toLocaleString()}</Typography>
                     </TableCell>
                     <TableCell align="right">
                       <Typography variant="body2" sx={{ fontWeight: "bold", color: "success.main" }}>
-                        ₹{payroll.netSalary.toLocaleString()}
+                        GH₵{payroll.netSalary.toLocaleString()}
                       </Typography>
                     </TableCell>
                     <TableCell>
