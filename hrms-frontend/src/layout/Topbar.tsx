@@ -9,13 +9,18 @@ import {
   MenuItem,
   useMediaQuery,
   useTheme,
+  IconButton,
 } from "@mui/material";
-import { Logout, Settings } from "@mui/icons-material";
+import { Logout, Settings, Menu as MenuIcon } from "@mui/icons-material";
 import { useAuthStore } from "../auth/authStore";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-export default function Topbar() {
+interface TopbarProps {
+  onMenuToggle?: () => void;
+}
+
+export default function Topbar({ onMenuToggle }: TopbarProps) {
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
   const navigate = useNavigate();
@@ -48,7 +53,17 @@ export default function Topbar() {
   return (
     <AppBar position="sticky">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        {/* Left side - Title */}
+        {/* Left side - Menu Toggle + Title */}
+        {isMobile && (
+          <IconButton
+            color="inherit"
+            onClick={onMenuToggle}
+            sx={{ mr: 2 }}
+            aria-label="toggle menu"
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
         <Typography variant="h6" sx={{ fontWeight: "bold", flexGrow: 1 }}>
           Welcome, {user?.name?.split(" ")[0]}!
         </Typography>

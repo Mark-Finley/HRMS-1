@@ -34,11 +34,15 @@ const menuItems = [
   { label: "Payroll", path: "/payroll", icon: AttachMoney, roles: ["admin", "hr"] },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
+}
+
+export default function Sidebar({ mobileOpen = false, onMobileClose }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const user = useAuthStore((s) => s.user);
-  const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -82,7 +86,7 @@ export default function Sidebar() {
               key={item.path}
               onClick={() => {
                 navigate(item.path);
-                if (isMobile) setMobileOpen(false);
+                if (isMobile && onMobileClose) onMobileClose();
               }}
               sx={{
                 mx: 1,
@@ -113,26 +117,12 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile Drawer Toggle */}
+      {/* Mobile Drawer */}
       {isMobile && (
-        <Box sx={{ position: "fixed", top: 70, left: 16, zIndex: 1200 }}>
-          <IconButton
-            onClick={() => setMobileOpen(!mobileOpen)}
-            sx={{
-              bgcolor: "primary.main",
-              color: "white",
-              "&:hover": { bgcolor: "primary.dark" },
-            }}
-          >
-            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
-          </IconButton>
-        </Box>
-      )}
-
-      {/* Desktop Drawer */}
-      {!isMobile && (
         <Drawer
-          variant="permanent"
+          variant="temporary"
+          open={mobileOpen}
+          onClose={onMobileClose}
           sx={{
             width: DRAWER_WIDTH,
             flexShrink: 0,
@@ -146,12 +136,10 @@ export default function Sidebar() {
         </Drawer>
       )}
 
-      {/* Mobile Drawer */}
-      {isMobile && (
+      {/* Desktop Drawer */}
+      {!isMobile && (
         <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={() => setMobileOpen(false)}
+          variant="permanent"
           sx={{
             width: DRAWER_WIDTH,
             flexShrink: 0,
