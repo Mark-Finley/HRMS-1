@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - KATH Employment Portal</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'img/kath-logo.png' %}">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kath-red': '#C8102E',
+                        'kath-dark-red': '#A00D24',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl grid md:grid-cols-2 gap-6">
+
+            <!-- Hero Panel -->
+            <div class="hidden md:block bg-kath-red text-white rounded-2xl shadow-lg p-8 relative overflow-hidden">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_left,#fff,transparent_35%)]"></div>
+                <div class="relative">
+                    <img src="{% static 'img/kath-logo.png' %}" alt="KATH Logo" class="h-16 mb-6">
+                    <h2 class="text-2xl font-bold mb-3">Join the KATH Applicant Portal</h2>
+                    <p class="text-sm text-red-50 leading-relaxed">
+                        Create your account to start and track your application. You will use the username and password you set here to log back in.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Signup Card -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+
+                <!-- Header -->
+                <div class="text-center mb-6">
+                    <div class="md:hidden mb-3 flex justify-center">
+                        <img src="{% static 'img/kath-logo.png' %}" alt="KATH Logo" class="h-14">
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-900">Create Your Account</h1>
+                    <p class="text-sm text-gray-600 mt-1">All fields are required</p>
+                </div>
+
+                <!-- Info Note -->
+                <div class="mb-4 p-3 bg-red-50 border-l-4 border-red-500 text-red-700 text-sm rounded">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Password must be at least 8 characters.
+                </div>
+
+                <!-- Signup Form -->
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="signup_type" value="applicant">
+
+                    <!-- Full Name -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            <i class="fas fa-user mr-1"></i> Full Name
+                        </label>
+                        <input
+                            type="text"
+                            name="full_name"
+                            placeholder="Enter your full name"
+                            required
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-kath-red focus:outline-none"
+                        >
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            <i class="fas fa-envelope mr-1"></i> Email
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-kath-red focus:outline-none"
+                        >
+                    </div>
+
+                    <!-- Username -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            <i class="fas fa-id-card mr-1"></i> Username
+                        </label>
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="Choose a username"
+                            required
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-kath-red focus:outline-none"
+                        >
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            <i class="fas fa-lock mr-1"></i> Password
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Create a password"
+                            required
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-kath-red focus:outline-none"
+                        >
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            <i class="fas fa-shield-alt mr-1"></i> Confirm Password
+                        </label>
+                        <input
+                            type="password"
+                            name="confirm_password"
+                            placeholder="Re-enter your password"
+                            required
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-kath-red focus:outline-none"
+                        >
+                    </div>
+
+                    <!-- Django Messages -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="mb-3 p-3 text-sm rounded bg-red-100 text-red-700">
+                                <i class="fas fa-exclamation-triangle mr-1"></i>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- Submit Button -->
+                    <button
+                        type="submit"
+                        class="w-full bg-kath-red hover:bg-kath-dark-red text-white font-semibold py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg"
+                    >
+                        <i class="fas fa-user-plus mr-2"></i> Create Account
+                    </button>
+
+                    <p class="text-center text-sm text-gray-600 mt-4">
+                        Already registered? <a href="/login" class="text-kath-red font-semibold hover:text-kath-dark-red">Log in</a>
+                    </p>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
