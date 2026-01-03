@@ -158,39 +158,39 @@
 
 		<!-- QUICK STATISTICS -->
 		<div class="quick-stats-grid">
-			<!-- Total Staff Card -->
+			<!-- Full-Time Employees Card -->
 			<div class="card stat-card">
 				<div class="card-body">
-					<p class="stat-label mb-2"><i class="fas fa-users me-2 text-kath-red"></i>Total Staff</p>
-					<p class="stat-number mb-0">{{ total_staff|default:"487" }}</p>
-					<small class="text-muted d-block mt-1">All personnel</small>
+					<p class="stat-label mb-2"><i class="fas fa-file-contract me-2 text-kath-red"></i>Full-Time Employees</p>
+					<p class="stat-number mb-0">{{ full_time|default:"412" }}</p>
+					<small class="text-muted d-block mt-1">Permanent staff</small>
 				</div>
 			</div>
 
-			<!-- Active Staff Card -->
+			<!-- New Hires Card -->
 			<div class="card stat-card">
 				<div class="card-body">
-					<p class="stat-label mb-2"><i class="fas fa-check-circle me-2" style="color: #28a745;"></i>Active Staff</p>
-					<p class="stat-number mb-0" style="color: #28a745;">{{ active_staff|default:"462" }}</p>
-					<small class="text-muted d-block mt-1">Currently employed</small>
+					<p class="stat-label mb-2"><i class="fas fa-user-plus me-2" style="color: #28a745;"></i>New Hires</p>
+					<p class="stat-number mb-0" style="color: #28a745;">{{ new_hires|default:"42" }}</p>
+					<small class="text-muted d-block mt-1">This year</small>
 				</div>
 			</div>
 
-			<!-- On Leave Card -->
+			<!-- Departments Card -->
 			<div class="card stat-card">
 				<div class="card-body">
-					<p class="stat-label mb-2"><i class="fas fa-calendar-alt me-2" style="color: #ffc107;"></i>On Leave</p>
-					<p class="stat-number mb-0" style="color: #ffc107;">{{ on_leave|default:"18" }}</p>
-					<small class="text-muted d-block mt-1">Current period</small>
+					<p class="stat-label mb-2"><i class="fas fa-building me-2" style="color: #0d6efd;"></i>Departments</p>
+					<p class="stat-number mb-0" style="color: #0d6efd;">{{ departments|default:"12" }}</p>
+					<small class="text-muted d-block mt-1">Across organization</small>
 				</div>
 			</div>
 
-			<!-- Retired / Separated Card -->
+			<!-- Job Positions Card -->
 			<div class="card stat-card">
 				<div class="card-body">
-					<p class="stat-label mb-2"><i class="fas fa-door-open me-2" style="color: #6c757d;"></i>Retired / Separated</p>
-					<p class="stat-number mb-0" style="color: #6c757d;">{{ retired_separated|default:"7" }}</p>
-					<small class="text-muted d-block mt-1">Past records</small>
+					<p class="stat-label mb-2"><i class="fas fa-briefcase me-2" style="color: #6f42c1;"></i>Job Positions</p>
+					<p class="stat-number mb-0" style="color: #6f42c1;">{{ job_positions|default:"28" }}</p>
+					<small class="text-muted d-block mt-1">Active roles</small>
 				</div>
 			</div>
 		</div>
@@ -199,15 +199,15 @@
 		<h5 class="mt-4 mb-3">Access Records</h5>
 
 		<div class="action-grid">
-			<!-- View Staff Records -->
-			<a href="{% url 'staff_list' %}" class="card action-card p-4 text-dark">
+			<!-- Department Directory -->
+			<a href="#" class="card action-card p-4 text-dark">
 				<div class="action-card-icon icon-primary">
-					<i class="fas fa-list"></i>
+					<i class="fas fa-sitemap"></i>
 				</div>
-				<h6 class="fw-bold mb-2">Staff Records</h6>
-				<p class="text-muted small mb-0">Browse all personnel and individual profiles</p>
+				<h6 class="fw-bold mb-2">Department Directory</h6>
+				<p class="text-muted small mb-0">View organization structure and department heads</p>
 				<div class="mt-3">
-					<span class="text-muted"><small><i class="fas fa-arrow-right me-1"></i>View records</small></span>
+					<span class="text-muted"><small><i class="fas fa-arrow-right me-1"></i>View directory</small></span>
 				</div>
 			</a>
 
