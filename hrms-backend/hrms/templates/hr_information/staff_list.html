@@ -100,6 +100,54 @@
 			color: #495057;
 			font-size: 0.95rem;
 		}
+
+		/* Statistics Cards */
+		.quick-stats-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: 1.25rem;
+			margin-bottom: 2rem;
+		}
+
+		.stat-card {
+			border: none;
+			box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+
+		.stat-card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+		}
+
+		.stat-label {
+			font-size: 0.95rem;
+			font-weight: 600;
+			color: #495057;
+		}
+
+		.stat-number {
+			font-size: 2rem;
+			font-weight: 700;
+			color: var(--kath-red);
+		}
+
+		.btn-kath-red {
+			background-color: #C8102E;
+			border-color: #C8102E;
+			color: white;
+		}
+		.btn-kath-red:hover {
+			background-color: #A00D24;
+			border-color: #A00D24;
+			color: white;
+		}
+
+		.no-results {
+			text-align: center;
+			padding: 3rem 1rem;
+			color: #6c757d;
+		}
 	</style>
 </head>
 <body>
@@ -152,54 +200,88 @@
 			<a class="btn btn-outline-secondary" href="{% url 'hr_information_index' %}"><i class="fas fa-arrow-left me-2"></i>Back</a>
 		</div>
 
-		<!-- SEARCH & FILTERS SECTION -->
+		<!-- QUICK STATISTICS -->
+		<div class="quick-stats-grid">
+			<!-- Full-Time Employees Card -->
+			<div class="card stat-card">
+				<div class="card-body">
+					<p class="stat-label mb-2"><i class="fas fa-file-contract me-2 text-kath-red"></i>Full-Time Employees</p>
+					<p class="stat-number mb-0">{{ full_time|default:"412" }}</p>
+					<small class="text-muted d-block mt-1">Permanent staff</small>
+				</div>
+			</div>
+
+			<!-- New Hires Card -->
+			<div class="card stat-card">
+				<div class="card-body">
+					<p class="stat-label mb-2"><i class="fas fa-user-plus me-2" style="color: #28a745;"></i>New Hires</p>
+					<p class="stat-number mb-0" style="color: #28a745;">{{ new_hires|default:"42" }}</p>
+					<small class="text-muted d-block mt-1">This year</small>
+				</div>
+			</div>
+
+			<!-- Departments Card -->
+			<div class="card stat-card">
+				<div class="card-body">
+					<p class="stat-label mb-2"><i class="fas fa-building me-2" style="color: #0d6efd;"></i>Departments</p>
+					<p class="stat-number mb-0" style="color: #0d6efd;">{{ departments|default:"12" }}</p>
+					<small class="text-muted d-block mt-1">Across organization</small>
+				</div>
+			</div>
+
+			<!-- Job Positions Card -->
+			<div class="card stat-card">
+				<div class="card-body">
+					<p class="stat-label mb-2"><i class="fas fa-briefcase me-2" style="color: #6f42c1;"></i>Job Positions</p>
+					<p class="stat-number mb-0" style="color: #6f42c1;">{{ job_positions|default:"28" }}</p>
+					<small class="text-muted d-block mt-1">Active roles</small>
+				</div>
+			</div>
+		</div>
+
+		<!-- FILTERS SECTION -->
 		<div class="card filter-card mb-4">
 			<div class="card-body">
 				<div class="row g-3">
-					<!-- Search Bar -->
-					<div class="col-md-6">
-						<label class="filter-label mb-2"><i class="fas fa-search me-2"></i>Search</label>
-						<input type="text" class="form-control" placeholder="Search by name, staff number, or ID...">
-					</div>
-
 					<!-- Department Filter -->
 					<div class="col-md-3">
 						<label class="filter-label mb-2"><i class="fas fa-building me-2"></i>Department</label>
-						<select class="form-select">
-							<option>All Departments</option>
-							<option>Cardiology</option>
-							<option>Orthopedics</option>
-							<option>Pediatrics</option>
-							<option>Finance</option>
-							<option>HR & Administration</option>
+						<select class="form-select" id="departmentFilter">
+							<option value="">All Departments</option>
+							<option value="Cardiology">Cardiology</option>
+							<option value="Orthopedics">Orthopedics</option>
+							<option value="Pediatrics">Pediatrics</option>
+							<option value="Finance">Finance</option>
+							<option value="HR & Administration">HR & Administration</option>
+							<option value="Facilities">Facilities</option>
 						</select>
 					</div>
 
 					<!-- Category Filter -->
 					<div class="col-md-3">
 						<label class="filter-label mb-2"><i class="fas fa-tag me-2"></i>Category</label>
-						<select class="form-select">
-							<option>All Categories</option>
-							<option>Clinical</option>
-							<option>Administrative</option>
-							<option>Support</option>
+						<select class="form-select" id="categoryFilter">
+							<option value="">All Categories</option>
+							<option value="Clinical">Clinical</option>
+							<option value="Administrative">Administrative</option>
+							<option value="Support">Support</option>
 						</select>
 					</div>
 
 					<!-- Status Filter -->
 					<div class="col-md-3">
 						<label class="filter-label mb-2"><i class="fas fa-circle-notch me-2"></i>Status</label>
-						<select class="form-select">
-							<option>All Status</option>
-							<option>Active</option>
-							<option>On Leave</option>
-							<option>Retired</option>
+						<select class="form-select" id="statusFilter">
+							<option value="">All Status</option>
+							<option value="Active">Active</option>
+							<option value="On Leave">On Leave</option>
+							<option value="Retired">Retired</option>
 						</select>
 					</div>
 
-					<!-- Search Button -->
+					<!-- Clear Filters Button -->
 					<div class="col-md-3 d-flex align-items-end">
-						<button class="btn btn-kath-red w-100"><i class="fas fa-search me-2"></i>Search</button>
+						<button class="btn btn-outline-secondary w-100" id="clearBtn"><i class="fas fa-times me-2"></i>Clear Filters</button>
 					</div>
 				</div>
 			</div>
@@ -207,8 +289,20 @@
 
 		<!-- RECORDS TABLE -->
 		<div class="card records-card">
+			<!-- Search Section Inside Table Card -->
+			<div class="card-header bg-white border-bottom">
+				<div class="row g-3 align-items-end">
+					<div class="col-md-9">
+						<label class="filter-label mb-2"><i class="fas fa-search me-2"></i>Search Staff</label>
+						<input type="text" id="searchInput" class="form-control" placeholder="Search by name, staff number, or ID...">
+					</div>
+					<div class="col-md-3">
+						<button class="btn btn-kath-red w-100" id="searchBtn"><i class="fas fa-search me-2"></i>Search</button>
+					</div>
+				</div>
+			</div>
 			<div class="table-responsive">
-				<table class="table table-hover">
+				<table class="table table-hover" id="staffTable">
 					<thead class="table-light">
 						<tr>
 							<th style="width: 12%;">Staff No.</th>
@@ -220,7 +314,7 @@
 							<th style="width: 8%; text-align: center;">Action</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="staffTableBody">
 						<!-- Sample Row 1: Clinical Staff -->
 						<tr>
 							<td>
@@ -342,6 +436,11 @@
 						</tr>
 					</tbody>
 				</table>
+				<div id="noResults" class="no-results" style="display: none;">
+					<i class="fas fa-search fa-3x mb-3"></i>
+					<h5>No Results Found</h5>
+					<p>Try adjusting your search criteria or filters</p>
+				</div>
 			</div>
 
 			<!-- Pagination -->
@@ -359,26 +458,95 @@
 						</li>
 					</ul>
 				</nav>
-				<small class="text-muted d-block mt-2">Showing 1-5 of {{ total_staff|default:"487" }} staff records</small>
+				<small class="text-muted d-block mt-2" id="resultsCount">Showing 1-5 of {{ total_staff|default:"487" }} staff records</small>
 			</div>
 		</div>
 
 	</div>
 </div>
 
-<style>
-	.btn-kath-red {
-		background-color: #C8102E;
-		border-color: #C8102E;
-		color: white;
-	}
-	.btn-kath-red:hover {
-		background-color: #A00D24;
-		border-color: #A00D24;
-		color: white;
-	}
-</style>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+	// Search and Filter Functionality
+	document.addEventListener('DOMContentLoaded', function() {
+		const searchInput = document.getElementById('searchInput');
+		const departmentFilter = document.getElementById('departmentFilter');
+		const categoryFilter = document.getElementById('categoryFilter');
+		const statusFilter = document.getElementById('statusFilter');
+		const searchBtn = document.getElementById('searchBtn');
+		const clearBtn = document.getElementById('clearBtn');
+		const tableBody = document.getElementById('staffTableBody');
+		const noResults = document.getElementById('noResults');
+		const resultsCount = document.getElementById('resultsCount');
+
+		function filterTable() {
+			const searchTerm = searchInput.value.toLowerCase().trim();
+			const department = departmentFilter.value.toLowerCase();
+			const category = categoryFilter.value.toLowerCase();
+			const status = statusFilter.value.toLowerCase();
+
+			const rows = tableBody.getElementsByTagName('tr');
+			let visibleCount = 0;
+
+			for (let row of rows) {
+				const staffNo = row.cells[0].textContent.toLowerCase();
+				const name = row.cells[1].textContent.toLowerCase();
+				const rowCategory = row.cells[2].textContent.toLowerCase();
+				const jobTitle = row.cells[3].textContent.toLowerCase();
+				const rowDepartment = row.cells[4].textContent.toLowerCase();
+				const rowStatus = row.cells[5].textContent.toLowerCase();
+
+				const matchesSearch = searchTerm === '' || 
+					staffNo.includes(searchTerm) || 
+					name.includes(searchTerm) ||
+					jobTitle.includes(searchTerm);
+
+				const matchesDepartment = department === '' || rowDepartment.includes(department);
+				const matchesCategory = category === '' || rowCategory.includes(category);
+				const matchesStatus = status === '' || rowStatus.includes(status);
+
+				if (matchesSearch && matchesDepartment && matchesCategory && matchesStatus) {
+					row.style.display = '';
+					visibleCount++;
+				} else {
+					row.style.display = 'none';
+				}
+			}
+
+			// Show/hide no results message
+			if (visibleCount === 0) {
+				noResults.style.display = 'block';
+				tableBody.parentElement.style.display = 'none';
+			} else {
+				noResults.style.display = 'none';
+				tableBody.parentElement.style.display = 'table';
+			}
+
+			// Update results count
+			resultsCount.textContent = `Showing ${visibleCount} of ${rows.length} staff records`;
+		}
+
+		// Event listeners
+		searchBtn.addEventListener('click', filterTable);
+		
+		searchInput.addEventListener('keyup', function(e) {
+			if (e.key === 'Enter') {
+				filterTable();
+			}
+		});
+
+		departmentFilter.addEventListener('change', filterTable);
+		categoryFilter.addEventListener('change', filterTable);
+		statusFilter.addEventListener('change', filterTable);
+
+		clearBtn.addEventListener('click', function() {
+			searchInput.value = '';
+			departmentFilter.value = '';
+			categoryFilter.value = '';
+			statusFilter.value = '';
+			filterTable();
+		});
+	});
+</script>
 </body>
 </html>

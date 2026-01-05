@@ -14,4 +14,5 @@ urlpatterns = [
     path('hr-info/staff/', views.staff_list, name='staff_list'),
     path('hr-info/staff/<int:staff_id>/', views.staff_profile, name='staff_profile'),
     path('hr-info/staff/<int:staff_id>/print/', views.print_record, name='print_record'),
+    
 ]  
