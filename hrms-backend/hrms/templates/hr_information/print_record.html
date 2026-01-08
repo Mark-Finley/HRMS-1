@@ -280,12 +280,13 @@
 
 	<!-- STAFF BIO SECTION -->
 	<div class="staff-bio">
-		<div class="staff-name">{{ staff.first_name|default:"Akosua" }} {{ staff.surname|default:"Owusu" }}</div>
-		<div class="staff-meta">Staff Number: <strong>{{ staff.staff_number|default:"KATH-10234" }}</strong> | Biometric Code: <strong>{{ staff.biometric_code|default:"C01522" }}</strong></div>
-		<div class="staff-meta">Department: {{ staff.department|default:"Cardiology" }} | Position: {{ staff.job_title|default:"Registered Nurse" }}</div>
+		<div class="staff-name">{{ staff.first_name }} {{ staff.surname }}</div>
+		<div class="staff-meta">Staff Number: <strong>{{ staff.kath_staff_number }}</strong> | Employee ID: <strong>{{ staff.employee_id }}</strong></div>
+		<div class="staff-meta">Directorate: {{ staff.directorate }} | Profession: {{ staff.profession }}</div>
 		<div style="margin-top: 5px;">
-			<span class="status-inline">✓ {{ staff.status|default:"ACTIVE" }}</span>
+			<span class="status-inline">✓ {{ staff.work_status }}</span>
 		</div>
+		<div class="staff-meta">Category: {{ staff.category_of_profession }}</div>
 	</div>
 
 	<!-- SECTION 1: IDENTITY & PERSONAL INFORMATION -->
@@ -295,43 +296,43 @@
 			<div>
 				<div class="section-subtitle">Biometric & Identification</div>
 				<div class="info-row">
-					<span class="info-label">Biometric Code:</span>
-					<span class="info-value">{{ staff.biometric_code|default:"C01522" }}</span>
+					<span class="info-label">Employee ID:</span>
+					<span class="info-value">{{ staff.employee_id }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">Staff Number:</span>
-					<span class="info-value">{{ staff.staff_number|default:"KATH-10234" }}</span>
+					<span class="info-value">{{ staff.kath_staff_number }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Old Staff Code:</span>
-					<span class="info-value">{{ staff.old_staff_code|default:"BK-18" }}</span>
+					<span class="info-label">Ghana Card Number:</span>
+					<span class="info-value">{{ staff.ghana_card_number }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">National ID:</span>
-					<span class="info-value">{{ staff.national_id|default:"GHA-123456789-1" }}</span>
+					<span class="info-label">SSNIT Number:</span>
+					<span class="info-value">{{ staff.ssnit_number }}</span>
 				</div>
 			</div>
 			<div>
 				<div class="section-subtitle">Personal Details</div>
 				<div class="info-row">
 					<span class="info-label">Surname:</span>
-					<span class="info-value">{{ staff.surname|default:"Owusu" }}</span>
+					<span class="info-value">{{ staff.surname }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">First Name:</span>
-					<span class="info-value">{{ staff.first_name|default:"Akosua" }}</span>
+					<span class="info-value">{{ staff.first_name }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">Other Names:</span>
-					<span class="info-value">{{ staff.other_name|default:"Serwaa" }}</span>
+					<span class="info-value">{{ staff.other_names|default:"N/A" }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">Gender:</span>
-					<span class="info-value">{{ staff.gender|default:"Female" }}</span>
+					<span class="info-value">{{ staff.sex }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">Date of Birth:</span>
-					<span class="info-value">{{ staff.date_of_birth|default:"1985-04-15" }}</span>
+					<span class="info-value">{{ staff.date_of_birth|date:"d M Y" }}</span>
 				</div>
 			</div>
 		</div>
@@ -345,38 +346,38 @@
 				<div class="section-subtitle">Role & Classification</div>
 				<div class="info-row">
 					<span class="info-label">Category:</span>
-					<span class="info-value">{{ staff.category|default:"Clinical" }}</span>
+					<span class="info-value">{{ staff.category_of_profession }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Cadre / Specialty:</span>
-					<span class="info-value">{{ staff.cadre|default:"Nursing (Cardiac)" }}</span>
+					<span class="info-label">Profession:</span>
+					<span class="info-value">{{ staff.profession }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Job Title:</span>
-					<span class="info-value">{{ staff.job_title|default:"Registered Nurse" }}</span>
+					<span class="info-label">Employment Status:</span>
+					<span class="info-value">{{ staff.profession_status }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Employment Type:</span>
-					<span class="info-value">{{ staff.employment_type|default:"Permanent" }}</span>
+					<span class="info-label">Work Status:</span>
+					<span class="info-value">{{ staff.work_status }}</span>
 				</div>
 			</div>
 			<div>
 				<div class="section-subtitle">Work Location & Assignment</div>
 				<div class="info-row">
-					<span class="info-label">Department:</span>
-					<span class="info-value">{{ staff.department|default:"Cardiology" }}</span>
+					<span class="info-label">Directorate:</span>
+					<span class="info-value">{{ staff.directorate }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Unit / Ward:</span>
-					<span class="info-value">{{ staff.unit_ward|default:"Cardiac ICU" }}</span>
+					<span class="info-label">Unit:</span>
+					<span class="info-value">{{ staff.unit }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Office Location:</span>
-					<span class="info-value">{{ staff.office_location|default:"Block A, Ground" }}</span>
+					<span class="info-label">Post of Duty:</span>
+					<span class="info-value">{{ staff.at_post_of_duty }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Job Description:</span>
-					<span class="info-value">{{ staff.job_description|default:"Patient Care" }}</span>
+					<span class="info-label">Payroll Status:</span>
+					<span class="info-value">{{ staff.payroll_status }}</span>
 				</div>
 			</div>
 		</div>
@@ -389,40 +390,40 @@
 			<div>
 				<div class="section-subtitle">Grade & Classification</div>
 				<div class="info-row">
-					<span class="info-label">Appointment Grade:</span>
-					<span class="info-value">{{ staff.appointment_grade|default:"Grade 8" }}</span>
+					<span class="info-label">Grade on First Appointment:</span>
+					<span class="info-value">{{ staff.grade_on_first_appointment }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">Current Grade:</span>
-					<span class="info-value">{{ staff.current_grade|default:"Grade 6" }}</span>
+					<span class="info-value">{{ staff.grade_on_current_appointment }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Band:</span>
-					<span class="info-value">{{ staff.band|default:"Band 2" }}</span>
+					<span class="info-label">Year of Current Grade:</span>
+					<span class="info-value">{{ staff.year_of_current_grade }}</span>
 				</div>
 			</div>
 			<div>
 				<div class="section-subtitle">Appointment Timeline</div>
 				<div class="info-row">
 					<span class="info-label">First Appointment:</span>
-					<span class="info-value">{{ staff.date_first_appointment|default:"2016-08-12" }}</span>
+					<span class="info-value">{{ staff.date_of_first_appointment|date:"d M Y" }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">Current Appointment:</span>
-					<span class="info-value">{{ staff.date_current_appointment|default:"2022-04-05" }}</span>
+					<span class="info-value">{{ staff.date_of_current_appointment|date:"d M Y" }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">Years of Service:</span>
-					<span class="info-value">{{ staff.years_of_service|default:"8 years" }}</span>
+					<span class="info-value">{{ staff.years_served }} years</span>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- SECTION 4: PROFESSIONAL CREDENTIALS (For Clinical) -->
-	{% if staff.category == "Clinical" or staff.license_number %}
+	<!-- SECTION 4: QUALIFICATIONS & CREDENTIALS -->
+	{% if staff.category_of_profession == "Clinical" or staff.academic_qualification or staff.professional_qualification %}
 	<div class="section">
-		<div class="section-title">Professional Credentials & Compliance</div>
+		<div class="section-title">Qualifications & Compliance</div>
 		<div class="info-row">
 			<span class="info-label">Regulatory Body:</span>
 			<span class="info-value">{{ staff.regulatory_body|default:"Nursing & Midwifery Council" }}</span>
