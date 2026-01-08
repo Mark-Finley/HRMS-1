@@ -1,0 +1,491 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HR Record - {{ staff.first_name }} {{ staff.surname }}</title>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			color: #333;
+			line-height: 1.6;
+			background: white;
+		}
+
+		.print-page {
+			width: 210mm;
+			height: 297mm;
+			margin: 0 auto;
+			padding: 20mm;
+			background: white;
+			box-shadow: 0 0 10px rgba(0,0,0,0.1);
+			page-break-after: always;
+		}
+
+		.hospital-header {
+			text-align: center;
+			border-bottom: 3px solid #C8102E;
+			padding-bottom: 15px;
+			margin-bottom: 20px;
+		}
+
+		.hospital-logo {
+			font-size: 18px;
+			font-weight: bold;
+			color: #C8102E;
+		}
+
+		.hospital-name {
+			font-size: 16px;
+			font-weight: 700;
+			color: #000;
+		}
+
+		.hospital-subtitle {
+			font-size: 11px;
+			color: #666;
+		}
+
+		.document-title {
+			text-align: center;
+			font-size: 14px;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: #C8102E;
+			margin: 15px 0;
+			letter-spacing: 0.5px;
+		}
+
+		.staff-bio {
+			background: #f5f5f5;
+			padding: 12px;
+			border-radius: 4px;
+			margin-bottom: 15px;
+			border-left: 4px solid #C8102E;
+		}
+
+		.staff-name {
+			font-size: 14px;
+			font-weight: 700;
+			color: #000;
+			margin-bottom: 3px;
+		}
+
+		.staff-meta {
+			font-size: 10px;
+			color: #666;
+			margin-bottom: 2px;
+		}
+
+		.status-inline {
+			display: inline-block;
+			padding: 2px 6px;
+			background: #28a745;
+			color: white;
+			font-size: 9px;
+			font-weight: 600;
+			border-radius: 3px;
+		}
+
+		.section {
+			margin-bottom: 15px;
+			page-break-inside: avoid;
+		}
+
+		.section-title {
+			font-size: 11px;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: white;
+			background: #C8102E;
+			padding: 6px 8px;
+			margin-bottom: 8px;
+			letter-spacing: 0.3px;
+		}
+
+		.section-subtitle {
+			font-size: 10px;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: #666;
+			background: #f0f0f0;
+			padding: 4px 6px;
+			margin-bottom: 6px;
+		}
+
+		.info-row {
+			display: flex;
+			justify-content: space-between;
+			font-size: 10px;
+			padding: 4px 0;
+			border-bottom: 1px solid #eee;
+		}
+
+		.info-row:last-child {
+			border-bottom: none;
+		}
+
+		.info-label {
+			font-weight: 600;
+			color: #444;
+			min-width: 120px;
+		}
+
+		.info-value {
+			text-align: right;
+			color: #333;
+		}
+
+		.two-column {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+		}
+
+		.history-item {
+			font-size: 10px;
+			padding: 6px 0;
+			border-bottom: 1px solid #eee;
+		}
+
+		.history-item:last-child {
+			border-bottom: none;
+		}
+
+		.history-date {
+			font-weight: 600;
+			color: #C8102E;
+		}
+
+		.history-title {
+			font-weight: 600;
+			color: #333;
+		}
+
+		.history-subtitle {
+			color: #666;
+			font-size: 9px;
+		}
+
+		.signature-section {
+			margin-top: 20px;
+			border-top: 1px solid #ddd;
+			padding-top: 15px;
+		}
+
+		.signature-box {
+			display: inline-block;
+			min-width: 120px;
+			text-align: center;
+			margin-right: 30px;
+		}
+
+		.signature-line {
+			border-top: 1px solid #000;
+			margin-bottom: 2px;
+			height: 30px;
+		}
+
+		.signature-name {
+			font-size: 9px;
+			font-weight: 600;
+		}
+
+		.stamp-box {
+			border: 2px dashed #C8102E;
+			padding: 15px;
+			text-align: center;
+			color: #C8102E;
+			font-size: 11px;
+			margin-top: 15px;
+		}
+
+		.footer-note {
+			font-size: 9px;
+			color: #999;
+			text-align: center;
+			margin-top: 15px;
+			border-top: 1px solid #ddd;
+			padding-top: 10px;
+		}
+
+		@media print {
+			body {
+				margin: 0;
+				padding: 0;
+			}
+
+			.print-page {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 20mm;
+				box-shadow: none;
+				page-break-after: always;
+			}
+
+			.no-print {
+				display: none;
+			}
+		}
+
+		.print-header {
+			text-align: right;
+			margin-bottom: 15px;
+		}
+
+		.print-btn {
+			padding: 8px 15px;
+			background: #C8102E;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 12px;
+		}
+
+		.print-btn:hover {
+			background: #A00D24;
+		}
+	</style>
+</head>
+<body>
+
+<!-- PRINT CONTROLS (Hidden on print) -->
+<div class="no-print" style="padding: 15px; background: #f0f0f0; text-align: right;">
+	<button class="print-btn" onclick="window.print()"><i>🖨️ Print Document</i></button>
+	<button class="print-btn" style="background: #666; margin-left: 10px;" onclick="window.history.back()"><i>← Go Back</i></button>
+</div>
+
+<!-- PRINTABLE DOCUMENT -->
+<div class="print-page">
+
+	<!-- HOSPITAL HEADER -->
+	<div class="hospital-header">
+		<div class="hospital-logo">🏥 KATH</div>
+		<div class="hospital-name">KOMFO ANOKYE TEACHING HOSPITAL</div>
+		<div class="hospital-subtitle">Human Resource Department - Official Personnel Record</div>
+	</div>
+
+	<!-- DOCUMENT TITLE -->
+	<div class="document-title">Official HR Personnel Record</div>
+
+	<!-- STAFF BIO SECTION -->
+	<div class="staff-bio">
+		<div class="staff-name">{{ staff.first_name|default:"Akosua" }} {{ staff.surname|default:"Owusu" }}</div>
+		<div class="staff-meta">Staff Number: <strong>{{ staff.staff_number|default:"KATH-10234" }}</strong> | Biometric Code: <strong>{{ staff.biometric_code|default:"C01522" }}</strong></div>
+		<div class="staff-meta">Department: {{ staff.department|default:"Cardiology" }} | Position: {{ staff.job_title|default:"Registered Nurse" }}</div>
+		<div style="margin-top: 5px;">
+			<span class="status-inline">✓ {{ staff.status|default:"ACTIVE" }}</span>
+		</div>
+	</div>
+
+	<!-- SECTION 1: IDENTITY & PERSONAL INFORMATION -->
+	<div class="section">
+		<div class="section-title">Identity & Personal Information</div>
+		<div class="two-column">
+			<div>
+				<div class="section-subtitle">Biometric & Identification</div>
+				<div class="info-row">
+					<span class="info-label">Biometric Code:</span>
+					<span class="info-value">{{ staff.biometric_code|default:"C01522" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Staff Number:</span>
+					<span class="info-value">{{ staff.staff_number|default:"KATH-10234" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Old Staff Code:</span>
+					<span class="info-value">{{ staff.old_staff_code|default:"BK-18" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">National ID:</span>
+					<span class="info-value">{{ staff.national_id|default:"GHA-123456789-1" }}</span>
+				</div>
+			</div>
+			<div>
+				<div class="section-subtitle">Personal Details</div>
+				<div class="info-row">
+					<span class="info-label">Surname:</span>
+					<span class="info-value">{{ staff.surname|default:"Owusu" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">First Name:</span>
+					<span class="info-value">{{ staff.first_name|default:"Akosua" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Other Names:</span>
+					<span class="info-value">{{ staff.other_name|default:"Serwaa" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Gender:</span>
+					<span class="info-value">{{ staff.gender|default:"Female" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Date of Birth:</span>
+					<span class="info-value">{{ staff.date_of_birth|default:"1985-04-15" }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- SECTION 2: EMPLOYMENT & PLACEMENT -->
+	<div class="section">
+		<div class="section-title">Employment & Placement</div>
+		<div class="two-column">
+			<div>
+				<div class="section-subtitle">Role & Classification</div>
+				<div class="info-row">
+					<span class="info-label">Category:</span>
+					<span class="info-value">{{ staff.category|default:"Clinical" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Cadre / Specialty:</span>
+					<span class="info-value">{{ staff.cadre|default:"Nursing (Cardiac)" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Job Title:</span>
+					<span class="info-value">{{ staff.job_title|default:"Registered Nurse" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Employment Type:</span>
+					<span class="info-value">{{ staff.employment_type|default:"Permanent" }}</span>
+				</div>
+			</div>
+			<div>
+				<div class="section-subtitle">Work Location & Assignment</div>
+				<div class="info-row">
+					<span class="info-label">Department:</span>
+					<span class="info-value">{{ staff.department|default:"Cardiology" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Unit / Ward:</span>
+					<span class="info-value">{{ staff.unit_ward|default:"Cardiac ICU" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Office Location:</span>
+					<span class="info-value">{{ staff.office_location|default:"Block A, Ground" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Job Description:</span>
+					<span class="info-value">{{ staff.job_description|default:"Patient Care" }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- SECTION 3: APPOINTMENT & GRADE -->
+	<div class="section">
+		<div class="section-title">Appointment, Grade & Band</div>
+		<div class="two-column">
+			<div>
+				<div class="section-subtitle">Grade & Classification</div>
+				<div class="info-row">
+					<span class="info-label">Appointment Grade:</span>
+					<span class="info-value">{{ staff.appointment_grade|default:"Grade 8" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Current Grade:</span>
+					<span class="info-value">{{ staff.current_grade|default:"Grade 6" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Band:</span>
+					<span class="info-value">{{ staff.band|default:"Band 2" }}</span>
+				</div>
+			</div>
+			<div>
+				<div class="section-subtitle">Appointment Timeline</div>
+				<div class="info-row">
+					<span class="info-label">First Appointment:</span>
+					<span class="info-value">{{ staff.date_first_appointment|default:"2016-08-12" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Current Appointment:</span>
+					<span class="info-value">{{ staff.date_current_appointment|default:"2022-04-05" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Years of Service:</span>
+					<span class="info-value">{{ staff.years_of_service|default:"8 years" }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- SECTION 4: PROFESSIONAL CREDENTIALS (For Clinical) -->
+	{% if staff.category == "Clinical" or staff.license_number %}
+	<div class="section">
+		<div class="section-title">Professional Credentials & Compliance</div>
+		<div class="info-row">
+			<span class="info-label">Regulatory Body:</span>
+			<span class="info-value">{{ staff.regulatory_body|default:"Nursing & Midwifery Council" }}</span>
+		</div>
+		<div class="info-row">
+			<span class="info-label">License Number:</span>
+			<span class="info-value">{{ staff.license_number|default:"NMC-12345-GH" }}</span>
+		</div>
+		<div class="info-row">
+			<span class="info-label">Issue Date:</span>
+			<span class="info-value">{{ staff.license_issue_date|default:"2015-06-10" }}</span>
+		</div>
+		<div class="info-row">
+			<span class="info-label">Expiry Date:</span>
+			<span class="info-value">{{ staff.license_expiry_date|default:"2026-06-10" }}</span>
+		</div>
+	</div>
+	{% endif %}
+
+	<!-- SECTION 5: EMPLOYMENT HISTORY -->
+	<div class="section">
+		<div class="section-title">Employment History (Last 5 Years)</div>
+		<div class="history-item">
+			<div class="history-date">2022-04-05</div>
+			<div class="history-title">Promotion to Grade 6</div>
+			<div class="history-subtitle">Cardiology Department | Permanent Appointment</div>
+		</div>
+		<div class="history-item">
+			<div class="history-date">2021-01-20</div>
+			<div class="history-title">Transfer to Cardiology</div>
+			<div class="history-subtitle">From: Pediatrics | Grade 7</div>
+		</div>
+		<div class="history-item">
+			<div class="history-date">2016-08-12</div>
+			<div class="history-title">Initial Appointment</div>
+			<div class="history-subtitle">Grade 8 | Pediatrics Department</div>
+		</div>
+	</div>
+
+	<!-- SIGNATURE & STAMP SECTION -->
+	<div class="signature-section">
+		<div style="display: inline-block; width: 48%; vertical-align: top;">
+			<div class="signature-box">
+				<div class="signature-line"></div>
+				<div class="signature-name">HR Manager Signature</div>
+				<div style="font-size: 9px; margin-top: 3px;">Date: _________________</div>
+			</div>
+		</div>
+
+		<div style="display: inline-block; width: 48%; vertical-align: top; margin-left: 4%;">
+			<div class="stamp-box">
+				HR DEPARTMENT<br>
+				STAMP & DATE
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<div class="footer-note">
+		Document generated on {{ now|date:"Y-m-d H:i" }} | This is an official KATH HR record | Confidential
+	</div>
+
+</div>
+
+</body>
+</html>

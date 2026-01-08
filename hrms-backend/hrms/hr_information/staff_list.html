@@ -89,17 +89,6 @@
 		.action-btn {
 			padding: 0.4rem 0.8rem;
 			font-size: 0.85rem;
-			display: inline-flex;
-			align-items: center;
-			gap: 0.25rem;
-			white-space: nowrap;
-		}
-
-		.action-cell {
-			display: flex;
-			gap: 0.5rem;
-			justify-content: center;
-			flex-wrap: nowrap;
 		}
 
 		.pagination {
@@ -208,10 +197,7 @@
 				<h2 class="mb-1">Staff Records</h2>
 				<p class="text-muted mb-0">Browse and search all personnel</p>
 			</div>
-			<div class="d-flex gap-2">
-				<a class="btn btn-kath-red" href="{% url 'create_staff' %}"><i class="fas fa-plus me-2"></i>New Staff</a>
-				<a class="btn btn-outline-secondary" href="{% url 'dashboard' %}"><i class="fas fa-arrow-left me-2"></i>Back</a>
-			</div>
+			<a class="btn btn-outline-secondary" href="{% url 'hr_information_index' %}"><i class="fas fa-arrow-left me-2"></i>Back</a>
 		</div>
 
 		<!-- QUICK STATISTICS -->
@@ -220,25 +206,25 @@
 			<div class="card stat-card">
 				<div class="card-body">
 					<p class="stat-label mb-2"><i class="fas fa-file-contract me-2 text-kath-red"></i>Full-Time Employees</p>
-					<p class="stat-number mb-0">{{ full_time }}</p>
-					<small class="text-muted d-block mt-1">Active staff</small>
+					<p class="stat-number mb-0">{{ full_time|default:"412" }}</p>
+					<small class="text-muted d-block mt-1">Permanent staff</small>
 				</div>
 			</div>
 
 			<!-- New Hires Card -->
 			<div class="card stat-card">
 				<div class="card-body">
-					<p class="stat-label mb-2"><i class="fas fa-user-plus me-2" style="color: #28a745;"></i>On Leave</p>
-					<p class="stat-number mb-0" style="color: #28a745;">{{ new_hires }}</p>
-					<small class="text-muted d-block mt-1">Currently on leave</small>
+					<p class="stat-label mb-2"><i class="fas fa-user-plus me-2" style="color: #28a745;"></i>New Hires</p>
+					<p class="stat-number mb-0" style="color: #28a745;">{{ new_hires|default:"42" }}</p>
+					<small class="text-muted d-block mt-1">This year</small>
 				</div>
 			</div>
 
 			<!-- Departments Card -->
 			<div class="card stat-card">
 				<div class="card-body">
-					<p class="stat-label mb-2"><i class="fas fa-building me-2" style="color: #0d6efd;"></i>Directorates</p>
-					<p class="stat-number mb-0" style="color: #0d6efd;">{{ departments }}</p>
+					<p class="stat-label mb-2"><i class="fas fa-building me-2" style="color: #0d6efd;"></i>Departments</p>
+					<p class="stat-number mb-0" style="color: #0d6efd;">{{ departments|default:"12" }}</p>
 					<small class="text-muted d-block mt-1">Across organization</small>
 				</div>
 			</div>
@@ -247,8 +233,8 @@
 			<div class="card stat-card">
 				<div class="card-body">
 					<p class="stat-label mb-2"><i class="fas fa-briefcase me-2" style="color: #6f42c1;"></i>Job Positions</p>
-					<p class="stat-number mb-0" style="color: #6f42c1;">{{ job_positions }}</p>
-					<small class="text-muted d-block mt-1">Unique roles</small>
+					<p class="stat-number mb-0" style="color: #6f42c1;">{{ job_positions|default:"28" }}</p>
+					<small class="text-muted d-block mt-1">Active roles</small>
 				</div>
 			</div>
 		</div>
@@ -259,12 +245,15 @@
 				<div class="row g-3">
 					<!-- Department Filter -->
 					<div class="col-md-3">
-						<label class="filter-label mb-2"><i class="fas fa-building me-2"></i>Directorate</label>
+						<label class="filter-label mb-2"><i class="fas fa-building me-2"></i>Department</label>
 						<select class="form-select" id="departmentFilter">
-							<option value="">All Directorates</option>
-							{% for directorate in directorates %}
-								<option value="{{ directorate }}">{{ directorate }}</option>
-							{% endfor %}
+							<option value="">All Departments</option>
+							<option value="Cardiology">Cardiology</option>
+							<option value="Orthopedics">Orthopedics</option>
+							<option value="Pediatrics">Pediatrics</option>
+							<option value="Finance">Finance</option>
+							<option value="HR & Administration">HR & Administration</option>
+							<option value="Facilities">Facilities</option>
 						</select>
 					</div>
 
@@ -284,28 +273,9 @@
 						<label class="filter-label mb-2"><i class="fas fa-circle-notch me-2"></i>Status</label>
 						<select class="form-select" id="statusFilter">
 							<option value="">All Status</option>
-							{% for status in work_statuses %}
-								<option value="{{ status }}">{{ status }}</option>
-							{% endfor %}
-						</select>
-					</div>
-					<!--- add a filter with month but filter based on month of birth -->
-					<div class="col-md-3">
-						<label class="filter-label mb-2"><i class="fas fa-birthday-cake me-2"></i>Birth Month</label>
-						<select class="form-select" id="birthMonthFilter">
-							<option value="">All Months</option>
-							<option value="January">January</option>
-							<option value="February">February</option>
-							<option value="March">March</option>
-							<option value="April">April</option>
-							<option value="May">May</option>
-							<option value="June">June</option>
-							<option value="July">July</option>
-							<option value="August">August</option>
-							<option value="September">September</option>
-							<option value="October">October</option>
-							<option value="November">November</option>
-							<option value="December">December</option>
+							<option value="Active">Active</option>
+							<option value="On Leave">On Leave</option>
+							<option value="Retired">Retired</option>
 						</select>
 					</div>
 
@@ -337,68 +307,40 @@
 						<tr>
 							<th style="width: 12%;">Staff ID</th>
 							<th style="width: 18%;">Full Name</th>
-<<<<<<< HEAD
-							<th style="width: 12%;">Category</th>
-							<th style="width: 15%;">Job Title</th>
-							<th style="width: 15%;">Directorate</th>
-							<th style="width: 10%;">contact</th>
-=======
 							<th style="width: 12%;">Contact</th>
 							<th style="width: 15%;">Profession</th>
 							<th style="width: 15%;">Directorate</th>
->>>>>>> 2720f81c73372af74391ebddbdd89eb0f41d35b8
 							<th style="width: 10%;">Status</th>
 							<th style="width: 8%; text-align: center;">Action</th>
 						</tr>
 					</thead>
 					<tbody id="staffTableBody">
-						{% for employee in staff %}
-						<tr data-birth-month="{{ employee.birth_month }}">
+						<!-- Sample Row 1: Clinical Staff -->
+						<tr>
 							<td>
-								<strong>{{ employee.kath_staff_number }}</strong>
-								<div class="staff-number">{{ employee.employee_id }}</div>
+								<strong>KATH-10234</strong>
+								<div class="staff-number">C01522</div>
 							</td>
 							<td>
-								<strong class="staff-name">{{ employee.first_name }} {{ employee.surname }}{% if employee.other_names %} {{ employee.other_names }}{% endif %}</strong>
+								<strong class="staff-name">Akosua Owusu Serwaa</strong>
 							</td>
 							<td>
-<<<<<<< HEAD
-								<span class="badge bg-primary bg-opacity-10 text-primary">{{ employee.category_of_profession }}</span>
-=======
 								<span class="badge bg-primary bg-opacity-10 text-primary">0240001110</span>
->>>>>>> 2720f81c73372af74391ebddbdd89eb0f41d35b8
 							</td>
-							<td>{{ employee.profession }}</td>
-							<td>{{ employee.directorate }}</td>
-							<td>{{ employee.contact_number }}</td>
+							<td>Registered Nurse</td>
+							<td>Cardiology</td>
 							<td>
-								{% if employee.work_status == 'Active' %}
-									<span class="badge badge-status status-active"><i class="fas fa-check-circle me-1"></i>{{ employee.work_status }}</span>
-								{% elif employee.work_status == 'On Leave' %}
-									<span class="badge badge-status status-leave"><i class="fas fa-calendar-alt me-1"></i>{{ employee.work_status }}</span>
-								{% else %}
-									<span class="badge badge-status status-retired"><i class="fas fa-door-open me-1"></i>{{ employee.work_status }}</span>
-								{% endif %}
+								<span class="badge badge-status status-active"><i class="fas fa-check-circle me-1"></i>Active</span>
 							</td>
 							<td style="text-align: center;">
-								<div class="action-cell">
-									<a href="{% url 'staff_profile' staff_id=employee.id %}" class="btn btn-sm btn-outline-primary action-btn" title="View Profile">
-										<i class="fas fa-eye me-1"></i>
-									</a>
-									<a href="{% url 'print_record' staff_id=employee.id %}" class="btn btn-sm btn-outline-secondary action-btn" target="_blank" title="Print Record">
-										<i class="fas fa-print me-1"></i>
-									</a>
-									<a href="{% url 'edit_staff' staff_id=employee.id %}" class="btn btn-sm btn-outline-warning action-btn" title="Edit Record">
-										<i class="fas fa-edit me-1"></i>
-									</a>
-								</div>
+								<a href="{% url 'staff_profile' staff_id=1 %}" class="btn btn-sm btn-outline-primary action-btn">
+									<i class="fas fa-eye me-1"></i>View
+								</a>
 							</td>
 						</tr>
-						{% empty %}
+
+						<!-- Sample Row 2: Administrative Staff -->
 						<tr>
-<<<<<<< HEAD
-							<td colspan="7" class="text-center text-muted py-4">No staff records found</td>
-=======
 							<td>
 								<strong>KATH-20811</strong>
 								<div class="staff-number">A04210</div>
@@ -491,9 +433,7 @@
 									<i class="fas fa-eye me-1"></i>View
 								</a>
 							</td>
->>>>>>> 2720f81c73372af74391ebddbdd89eb0f41d35b8
 						</tr>
-						{% endfor %}
 					</tbody>
 				</table>
 				<div id="noResults" class="no-results" style="display: none;">
@@ -518,7 +458,7 @@
 						</li>
 					</ul>
 				</nav>
-				<small class="text-muted d-block mt-2" id="resultsCount">Showing 1-5 of {{ total_staff }} staff records</small>
+				<small class="text-muted d-block mt-2" id="resultsCount">Showing 1-5 of {{ total_staff|default:"487" }} staff records</small>
 			</div>
 		</div>
 
@@ -533,27 +473,17 @@
 		const departmentFilter = document.getElementById('departmentFilter');
 		const categoryFilter = document.getElementById('categoryFilter');
 		const statusFilter = document.getElementById('statusFilter');
-		const birthMonthFilter = document.getElementById('birthMonthFilter');
 		const searchBtn = document.getElementById('searchBtn');
 		const clearBtn = document.getElementById('clearBtn');
 		const tableBody = document.getElementById('staffTableBody');
 		const noResults = document.getElementById('noResults');
 		const resultsCount = document.getElementById('resultsCount');
 
-		// Month name to number mapping
-		const monthMap = {
-			'january': 1, 'february': 2, 'march': 3, 'april': 4,
-			'may': 5, 'june': 6, 'july': 7, 'august': 8,
-			'september': 9, 'october': 10, 'november': 11, 'december': 12
-		};
-
 		function filterTable() {
 			const searchTerm = searchInput.value.toLowerCase().trim();
 			const department = departmentFilter.value.toLowerCase();
 			const category = categoryFilter.value.toLowerCase();
 			const status = statusFilter.value.toLowerCase();
-			const birthMonth = birthMonthFilter.value.toLowerCase();
-			const birthMonthNum = birthMonth ? monthMap[birthMonth] : null;
 
 			const rows = tableBody.getElementsByTagName('tr');
 			let visibleCount = 0;
@@ -565,7 +495,6 @@
 				const jobTitle = row.cells[3].textContent.toLowerCase();
 				const rowDepartment = row.cells[4].textContent.toLowerCase();
 				const rowStatus = row.cells[5].textContent.toLowerCase();
-				const rowBirthMonth = parseInt(row.getAttribute('data-birth-month'));
 
 				const matchesSearch = searchTerm === '' || 
 					staffNo.includes(searchTerm) || 
@@ -575,9 +504,8 @@
 				const matchesDepartment = department === '' || rowDepartment.includes(department);
 				const matchesCategory = category === '' || rowCategory.includes(category);
 				const matchesStatus = status === '' || rowStatus.includes(status);
-				const matchesBirthMonth = birthMonthNum === null || rowBirthMonth === birthMonthNum;
 
-				if (matchesSearch && matchesDepartment && matchesCategory && matchesStatus && matchesBirthMonth) {
+				if (matchesSearch && matchesDepartment && matchesCategory && matchesStatus) {
 					row.style.display = '';
 					visibleCount++;
 				} else {
@@ -601,9 +529,6 @@
 		// Event listeners
 		searchBtn.addEventListener('click', filterTable);
 		
-		// Auto-search as user types
-		searchInput.addEventListener('input', filterTable);
-		
 		searchInput.addEventListener('keyup', function(e) {
 			if (e.key === 'Enter') {
 				filterTable();
@@ -613,14 +538,12 @@
 		departmentFilter.addEventListener('change', filterTable);
 		categoryFilter.addEventListener('change', filterTable);
 		statusFilter.addEventListener('change', filterTable);
-		birthMonthFilter.addEventListener('change', filterTable);
 
 		clearBtn.addEventListener('click', function() {
 			searchInput.value = '';
 			departmentFilter.value = '';
 			categoryFilter.value = '';
 			statusFilter.value = '';
-			birthMonthFilter.value = '';
 			filterTable();
 		});
 	});
