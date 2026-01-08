@@ -269,6 +269,13 @@ class Employee(models.Model):
         ('Contract', 'Contract'),
         ('Temporary', 'Temporary'),
     ]
+    CATEGORY_OF_PROFESSION_CHOICES = [
+        ('Medical', 'Medical'),
+        ('Nursing', 'Nursing'),
+        ('Allied Health', 'Allied Health'),
+        ('Administrative', 'Administrative'),
+        ('Support Staff', 'Support Staff'),
+    ]
     
     # =========================
     # IDENTIFICATION
@@ -296,7 +303,7 @@ class Employee(models.Model):
     # =========================
 
     institutional_email = models.EmailField(unique=True)
-    personal_email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True)
     contact_number = models.CharField(max_length=15)
 
     # =========================
@@ -304,7 +311,7 @@ class Employee(models.Model):
     # =========================
 
     profession = models.CharField(max_length=100)
-    category_of_profession = models.CharField(max_length=100)
+    category_of_profession = models.CharField(max_length=100, choices=CATEGORY_OF_PROFESSION_CHOICES)
     profession_status = models.CharField(
         max_length=100, choices=PROFESSION_STATUS_CHOICES
     )

@@ -459,7 +459,11 @@
 				const rowCategory = row.cells[2].textContent.toLowerCase();
 				const jobTitle = row.cells[3].textContent.toLowerCase();
 				const rowDepartment = row.cells[4].textContent.toLowerCase();
-				const rowStatus = row.cells[5].textContent.toLowerCase();
+				
+				// Extract status from badge span - get the text after the icon
+				const statusBadge = row.cells[5].querySelector('.badge');
+				const rowStatus = statusBadge ? statusBadge.textContent.toLowerCase().trim() : row.cells[5].textContent.toLowerCase().trim();
+				
 				const rowBirthMonth = parseInt(row.getAttribute('data-birth-month'));
 
 				const matchesSearch = searchTerm === '' || 

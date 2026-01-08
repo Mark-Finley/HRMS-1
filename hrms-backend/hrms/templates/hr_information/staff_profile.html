@@ -330,7 +330,7 @@
 							<span class="field-value">{{ staff.employee_id }}</span>
 						</div>
 						<div class="field-row">
-							<span class="field-label">Staff Number</span>
+							<span class="field-label">Staff ID Number</span>
 							<span class="field-value">{{ staff.kath_staff_number }}</span>
 						</div>
 						<div class="field-row">
@@ -340,6 +340,10 @@
 						<div class="field-row">
 							<span class="field-label">SSNIT Number</span>
 							<span class="field-value">{{ staff.ssnit_number }}</span>
+						</div>
+						<div class="field-row">
+							<span class="field-label">Email</span>
+							<span class="field-value">{{ staff.email }}</span>
 						</div>
 					</div>
 
@@ -365,6 +369,14 @@
 							<span class="field-label">Date of Birth</span>
 							<span class="field-value">{{ staff.date_of_birth|date:"d M Y" }}</span>
 						</div>
+						<div class="field-row">
+							<span class="field-label">Nationality</span>
+							<span class="field-value">{{ staff.nationality }}</span>
+						</div>
+						<div class="field-row">
+							<span class="field-label">Age</span>
+							<span class="field-value">{{ staff.age }}</span>	
+						</div>
 					</div>
 				</div>
 			</div>
@@ -385,8 +397,16 @@
 							<span class="field-value">{{ staff.category_of_profession }}</span>
 						</div>
 						<div class="field-row">
+							<span class="field-label">Category Classification</span>
+							<span class="field-value">{{ staff.category_classification }}</span>
+						</div>
+						<div class="field-row">
 							<span class="field-label">Profession</span>
 							<span class="field-value">{{ staff.profession }}</span>
+						</div>
+						<div class="field-row">
+							<span class="field-label">SSSS Grade</span>
+							<span class="field-value">{{ staff.ssss_grade }}</span>
 						</div>
 						<div class="field-row">
 							<span class="field-label">Employment Status</span>
@@ -396,10 +416,26 @@
 							<span class="field-label">Work Status</span>
 							<span class="field-value">{{ staff.work_status }}</span>
 						</div>
+						<div class="field-row">
+							<span class="field-label">Sal Grouping</span>
+							<span class="field-value">{{ staff.sal_grouping }}</span>
+						</div>
+						<div class="field-row">
+							<span class="field-label">Email</span>
+							<span class="field-value">{{ staff.institutional_email }}</span>
+						</div>
 					</div>
 
 					<div class="col-md-6">
 						<div class="section-label">Work Location & Assignment</div>
+						<div class="field-row">
+							<span class="field-label">Shelf Location</span>
+							<span class="field-value">{{ staff.shelf_location_number }}</span>
+						</div>
+						<div class="field-row">
+							<span class="field-label">Shelf Roll</span>
+							<span class="field-value">{{ staff.shelf_call_number }}</span>
+						</div>
 						<div class="field-row">
 							<span class="field-label">Directorate</span>
 							<span class="field-value">{{ staff.directorate }}</span>
@@ -415,6 +451,10 @@
 						<div class="field-row">
 							<span class="field-label">Payroll Status</span>
 							<span class="field-value">{{ staff.payroll_status }}</span>
+						</div>
+						<div class="field-row">
+							<span class="field-label">Year to Retired</span>
+							<span class="field-value">{{ staff.year_to_retired }}</span>
 						</div>
 					</div>
 				</div>

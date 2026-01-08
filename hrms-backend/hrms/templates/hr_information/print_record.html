@@ -270,7 +270,7 @@
 
 	<!-- HOSPITAL HEADER -->
 	<div class="hospital-header">
-		<div class="hospital-logo">🏥 KATH</div>
+		<div class="hospital-logo"><img src="{% static 'img/kath-logo.png' %}" alt="KATH Logo" style="height: 20px; width: auto;"> KATH</div>
 		<div class="hospital-name">KOMFO ANOKYE TEACHING HOSPITAL</div>
 		<div class="hospital-subtitle">Human Resource Department - Official Personnel Record</div>
 	</div>
@@ -310,6 +310,10 @@
 				<div class="info-row">
 					<span class="info-label">SSNIT Number:</span>
 					<span class="info-value">{{ staff.ssnit_number }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Email:</span>
+					<span class="info-value">{{ staff.email }}</span>
 				</div>
 			</div>
 			<div>

@@ -109,6 +109,15 @@
 			color: #6c757d;
 			margin-bottom: 1rem;
 		}
+
+		.other-input {
+			display: none;
+			margin-top: 0.5rem;
+		}
+
+		.other-input.show {
+			display: block !important;
+		}
 	</style>
 </head>
 <body>
@@ -266,12 +275,14 @@
 						</div>
 						<div class="col-md-4 mb-3">
 							<label class="form-label">Nationality</label>
-							<select class="form-select" name="nationality">
-								<option value="">Select...</option>
-								{% for nationality in nationalities %}
-									<option value="{{ nationality }}">{{ nationality }}</option>
-								{% endfor %}
-							</select>
+						<select class="form-select" name="nationality" onchange="toggleOtherInput(this)">
+							<option value="">Select...</option>
+							{% for nationality in nationalities %}
+								<option value="{{ nationality }}">{{ nationality }}</option>
+							{% endfor %}
+							<option value="other">Other (specify)</option>
+						</select>
+						<input type="text" class="form-control other-input" id="nationality_other" placeholder="Enter nationality" data-field="nationality">
 						</div>
 					</div>
 
@@ -294,7 +305,16 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Category of Profession</label>
-							<input type="text" class="form-control" name="category_of_profession" placeholder="e.g., Medical, Administrative">
+						<select class="form-select" name="category_of_profession" onchange="toggleOtherInput(this)">
+							<option value="">Select...</option>
+							<option value="Medical">Medical</option>
+							<option value="Nursing">Nursing</option>
+							<option value="Allied Health">Allied Health</option>
+							<option value="Administrative">Administrative</option>
+							<option value="Support Staff">Support Staff</option>
+							<option value="other">Other (specify)</option>
+						</select>
+						<input type="text" class="form-control other-input" id="category_of_profession_other" placeholder="Enter profession category" data-field="category_of_profession">
 						</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Profession</label>
@@ -305,33 +325,39 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Profession Status</label>
-							<select class="form-select" name="profession_status">
-								<option value="">Select...</option>
-								{% for prof in professions %}
-									<option value="{{ prof }}">{{ prof }}</option>
-								{% endfor %}
-							</select>
+						<select class="form-select" name="profession_status" onchange="toggleOtherInput(this)">
+							<option value="">Select...</option>
+							{% for prof in professions %}
+								<option value="{{ prof }}">{{ prof }}</option>
+							{% endfor %}
+							<option value="other">Other (specify)</option>
+						</select>
+						<input type="text" class="form-control other-input" id="profession_status_other" placeholder="Enter profession status" data-field="profession_status">
 						</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Work Status</label>
-							<select class="form-select" name="work_status">
-								<option value="">Select...</option>
-								{% for status in work_statuses %}
-									<option value="{{ status }}">{{ status }}</option>
-								{% endfor %}
-							</select>
+						<select class="form-select" name="work_status" onchange="toggleOtherInput(this)">
+							<option value="">Select...</option>
+							{% for status in work_statuses %}
+								<option value="{{ status }}">{{ status }}</option>
+							{% endfor %}
+							<option value="other">Other (specify)</option>
+						</select>
+						<input type="text" class="form-control other-input" id="work_status_other" placeholder="Enter work status" data-field="work_status">
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Directorate</label>
-							<select class="form-select" name="directorate">
-								<option value="">Select...</option>
-								{% for directorate in directorates %}
-									<option value="{{ directorate }}">{{ directorate }}</option>
-								{% endfor %}
-							</select>
+						<select class="form-select" name="directorate" onchange="toggleOtherInput(this)">
+							<option value="">Select...</option>
+							{% for directorate in directorates %}
+								<option value="{{ directorate }}">{{ directorate }}</option>
+							{% endfor %}
+							<option value="other">Other (specify)</option>
+						</select>
+						<input type="text" class="form-control other-input" id="directorate_other" placeholder="Enter directorate" data-field="directorate">
 						</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Unit</label>
@@ -342,7 +368,13 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Payroll Status</label>
-							<input type="text" class="form-control" name="payroll_status" placeholder="e.g., Active">
+						<select class="form-select" name="payroll_status" onchange="toggleOtherInput(this)">
+							<option value="">Select...</option>
+							<option value="On Payroll">On Payroll</option>
+							<option value="Off Payroll">Off Payroll</option>
+							<option value="other">Other (specify)</option>
+						</select>
+						<input type="text" class="form-control other-input" id="payroll_status_other" placeholder="Enter payroll status" data-field="payroll_status">
 						</div>
 						<div class="col-md-6 mb-3">
 							<div class="form-check mt-4">
@@ -404,7 +436,13 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">GoG/IGF Status</label>
-							<input type="text" class="form-control" name="gog_igf_status" placeholder="Government/IGF Status">
+						<select class="form-select" name="gog_igf_status" onchange="toggleOtherInput(this)">
+							<option value="">Select...</option>
+							<option value="GOG">GOG (Government of Ghana)</option>
+							<option value="IGF">IGF (Internally Generated Funds)</option>
+							<option value="other">Other (specify)</option>
+						</select>
+						<input type="text" class="form-control other-input" id="gog_igf_status_other" placeholder="Enter GoG/IGF status" data-field="gog_igf_status">
 						</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Seniority Status</label>
@@ -469,5 +507,36 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+	function toggleOtherInput(selectElement) {
+		const fieldName = selectElement.name;
+		const otherInput = document.getElementById(fieldName + '_other');
+		const mainSelect = document.querySelector(`select[name="${fieldName}"]`);
+		
+		if (selectElement.value === 'other') {
+			otherInput.classList.add('show');
+			otherInput.focus();
+		} else {
+			otherInput.classList.remove('show');
+			otherInput.value = '';
+		}
+	}
+	
+	// Handle form submission to use custom input if "Other" was selected
+	document.querySelector('form').addEventListener('submit', function(e) {
+		const fields = ['nationality', 'profession_status', 'work_status', 'directorate', 'category_of_profession', 'payroll_status', 'gog_igf_status'];
+		
+		fields.forEach(field => {
+			const select = document.querySelector(`select[name="${field}"]`);
+			const input = document.getElementById(field + '_other');
+			
+			if (select && select.value === 'other' && input && input.value.trim()) {
+				select.value = input.value;
+			}
+		});
+	});
+</script>
+
 </body>
 </html>
