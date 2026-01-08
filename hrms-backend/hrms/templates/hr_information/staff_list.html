@@ -335,18 +335,12 @@
 				<table class="table table-hover" id="staffTable">
 					<thead class="table-light">
 						<tr>
-							<th style="width: 12%;">Staff ID</th>
+							<th style="width: 12%;">Staff No.</th>
 							<th style="width: 18%;">Full Name</th>
-<<<<<<< HEAD
 							<th style="width: 12%;">Category</th>
 							<th style="width: 15%;">Job Title</th>
 							<th style="width: 15%;">Directorate</th>
 							<th style="width: 10%;">contact</th>
-=======
-							<th style="width: 12%;">Contact</th>
-							<th style="width: 15%;">Profession</th>
-							<th style="width: 15%;">Directorate</th>
->>>>>>> 2720f81c73372af74391ebddbdd89eb0f41d35b8
 							<th style="width: 10%;">Status</th>
 							<th style="width: 8%; text-align: center;">Action</th>
 						</tr>
@@ -362,11 +356,7 @@
 								<strong class="staff-name">{{ employee.first_name }} {{ employee.surname }}{% if employee.other_names %} {{ employee.other_names }}{% endif %}</strong>
 							</td>
 							<td>
-<<<<<<< HEAD
 								<span class="badge bg-primary bg-opacity-10 text-primary">{{ employee.category_of_profession }}</span>
-=======
-								<span class="badge bg-primary bg-opacity-10 text-primary">0240001110</span>
->>>>>>> 2720f81c73372af74391ebddbdd89eb0f41d35b8
 							</td>
 							<td>{{ employee.profession }}</td>
 							<td>{{ employee.directorate }}</td>
@@ -396,102 +386,7 @@
 						</tr>
 						{% empty %}
 						<tr>
-<<<<<<< HEAD
 							<td colspan="7" class="text-center text-muted py-4">No staff records found</td>
-=======
-							<td>
-								<strong>KATH-20811</strong>
-								<div class="staff-number">A04210</div>
-							</td>
-							<td>
-								<strong class="staff-name">Kwame Mensah Kojo</strong>
-							</td>
-							<td>
-								<span class="badge bg-success bg-opacity-10 text-success">0240001117</span>
-							</td>
-							<td>Administrative Officer</td>
-							<td>Finance</td>
-							<td>
-								<span class="badge badge-status status-active"><i class="fas fa-check-circle me-1"></i>Active</span>
-							</td>
-							<td style="text-align: center;">
-								<a href="{% url 'staff_profile' staff_id=2 %}" class="btn btn-sm btn-outline-primary action-btn">
-									<i class="fas fa-eye me-1"></i>View
-								</a>
-							</td>
-						</tr>
-
-						<!-- Sample Row 3: On Leave -->
-						<tr>
-							<td>
-								<strong>KATH-15467</strong>
-								<div class="staff-number">C02891</div>
-							</td>
-							<td>
-								<strong class="staff-name">Ama Boateng Yaa</strong>
-							</td>
-							<td>
-								<span class="badge bg-danger bg-opacity-10 text-danger">0240501110</span>
-							</td>
-							<td>Doctor (Medical Officer)</td>
-							<td>Pediatrics</td>
-							<td>
-								<span class="badge badge-status status-leave"><i class="fas fa-calendar-alt me-1"></i>On Leave</span>
-							</td>
-							<td style="text-align: center;">
-								<a href="{% url 'staff_profile' staff_id=3 %}" class="btn btn-sm btn-outline-primary action-btn">
-									<i class="fas fa-eye me-1"></i>View
-								</a>
-							</td>
-						</tr>
-
-						<!-- Sample Row 4: Retired -->
-						<tr>
-							<td>
-								<strong>KATH-50102</strong>
-								<div class="staff-number">C00456</div>
-							</td>
-							<td>
-								<strong class="staff-name">Benjamin Asare Senior</strong>
-							</td>
-							<td>
-								<span class="badge bg-secondary bg-opacity-10 text-secondary">0240001110</span>
-							</td>
-							<td>Consultant Surgeon</td>
-							<td>Orthopedics</td>
-							<td>
-								<span class="badge badge-status status-retired"><i class="fas fa-door-open me-1"></i>Retired</span>
-							</td>
-							<td style="text-align: center;">
-								<a href="{% url 'staff_profile' staff_id=4 %}" class="btn btn-sm btn-outline-primary action-btn">
-									<i class="fas fa-eye me-1"></i>View
-								</a>
-							</td>
-						</tr>
-
-						<!-- Sample Row 5 -->
-						<tr>
-							<td>
-								<strong>KATH-12345</strong>
-								<div class="staff-number">A01234</div>
-							</td>
-							<td>
-								<strong class="staff-name">Grace Mensah Ama</strong>
-							</td>
-							<td>
-								<span class="badge bg-warning bg-opacity-10 text-warning">0240001110</span>
-							</td>
-							<td>Cleaner / Housekeeper</td>
-							<td>Facilities</td>
-							<td>
-								<span class="badge badge-status status-active"><i class="fas fa-check-circle me-1"></i>Active</span>
-							</td>
-							<td style="text-align: center;">
-								<a href="{% url 'staff_profile' staff_id=5 %}" class="btn btn-sm btn-outline-primary action-btn">
-									<i class="fas fa-eye me-1"></i>View
-								</a>
-							</td>
->>>>>>> 2720f81c73372af74391ebddbdd89eb0f41d35b8
 						</tr>
 						{% endfor %}
 					</tbody>
