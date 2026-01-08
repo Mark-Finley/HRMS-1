@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KATH HRM Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --kath-red: #C8102E;
+            --kath-dark-red: #A00D24;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            min-height: 100vh;
+        }
+
+        .bg-kath-red { background-color: var(--kath-red) !important; }
+        .text-kath-red { color: var(--kath-red) !important; }
+
+        .stat-card {
+            transition: all 0.25s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+
+        .icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-kath-red shadow-sm sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'dashboard' %}">
+            <img src="{% static 'img/kath-logo.png' %}" alt="KATH Logo"
+                 style="height:32px; filter:brightness(0) invert(1);">
+            <span class="fw-bold text-white">KATH HRM</span>
+        </a>
+
+        <button class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <i class="fas fa-bars text-white"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+
+                <li class="nav-item">
+                    <a class="nav-link text-white active">
+                        <i class="fas fa-chart-line me-1"></i> Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
+                        <i class="fas fa-users me-1"></i> Employees
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item">All Employees</a></li>
+                        <li><a class="dropdown-item">Add Employee</a></li>
+                        <li><a class="dropdown-item">Departments</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
+                        <i class="fas fa-calendar-alt me-1"></i> Leave & Attendance
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item">Attendance</a></li>
+                        <li><a class="dropdown-item">Leave Requests</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
+                        <span class="badge bg-white text-kath-red">Admin</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item">Profile</a></li>
+                        <li><a class="dropdown-item">Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger">Logout</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container-fluid p-4">
+<div class="container">
+
+<!-- STATS -->
+<div class="row g-4 mb-4">
+    <div class="col-md-6 col-lg-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body">
+                <h3 class="fw-bold">487</h3>
+                <p class="text-muted mb-0">Total Employees</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body">
+                <h3 class="fw-bold">462</h3>
+                <p class="text-muted mb-0">Active Today</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body">
+                <h3 class="fw-bold">18</h3>
+                <p class="text-muted mb-0">On Leave</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body">
+                <h3 class="fw-bold">4.2 yrs</h3>
+                <p class="text-muted mb-0">Avg Tenure</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODULE CARDS -->
+<div class="row g-4">
+
+    <!-- Employment Services -->
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none">
+            <div class="card stat-card h-100 border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <div class="icon-box bg-primary bg-opacity-10 mx-auto mb-3">
+                        <i class="fas fa-users text-primary fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold text-dark">Employment Services</h5>
+                    <p class="text-muted small">Recruitment & onboarding</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Training -->
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none">
+            <div class="card stat-card h-100 border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <div class="icon-box bg-success bg-opacity-10 mx-auto mb-3">
+                        <i class="fas fa-graduation-cap text-success fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold text-dark">Training & Development</h5>
+                    <p class="text-muted small">Staff development programs</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Performance -->
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none">
+            <div class="card stat-card h-100 border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <div class="icon-box bg-warning bg-opacity-10 mx-auto mb-3">
+                        <i class="fas fa-chart-line text-warning fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold text-dark">Employee Performance</h5>
+                    <p class="text-muted small">Appraisals & KPIs</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Compensation -->
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none">
+            <div class="card stat-card h-100 border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <div class="icon-box bg-info bg-opacity-10 mx-auto mb-3">
+                        <i class="fas fa-money-bill-wave text-info fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold text-dark">Compensation</h5>
+                    <p class="text-muted small">Payroll & benefits</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- HR Information -->
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <a href="{% url 'staff_list' %}" class="text-decoration-none">
+            <div class="card stat-card h-100 border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <div class="icon-box bg-danger bg-opacity-10 mx-auto mb-3">
+                        <i class="fas fa-database text-danger fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold text-dark">HR Information</h5>
+                    <p class="text-muted small">Employee records</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Employee Relations -->
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none">
+            <div class="card stat-card h-100 border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <div class="icon-box bg-secondary bg-opacity-10 mx-auto mb-3">
+                        <i class="fas fa-handshake text-secondary fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold text-dark">Employee Relations</h5>
+                    <p class="text-muted small">Staff welfare & engagement</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- HR Monitoring -->
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none">
+            <div class="card stat-card h-100 border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <div class="icon-box bg-warning bg-opacity-10 mx-auto mb-3">
+                        <i class="fas fa-clipboard-check text-warning fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold text-dark">HR Monitoring & Evaluation</h5>
+                    <p class="text-muted small">Analytics & audits</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- HR Registry -->
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <a href="{% url 'dashboard' %}" class="text-decoration-none">
+            <div class="card stat-card h-100 border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <div class="icon-box bg-kath-red bg-opacity-10 mx-auto mb-3">
+                        <i class="fas fa-folder-open text-kath-red fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold text-dark">HR Registry</h5>
+                    <p class="text-muted small">Documents & archives</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+</div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
