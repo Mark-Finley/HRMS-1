@@ -282,7 +282,7 @@ class Employee(models.Model):
     # =========================
 
     employee_id = models.CharField(max_length=50, unique=True)
-    kath_staff_number = models.CharField(max_length=50, unique=True)
+    profile_pic = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     ghana_card_number = models.CharField(max_length=50, unique=True)
     ssnit_number = models.CharField(max_length=50, unique=True)
 
@@ -324,9 +324,7 @@ class Employee(models.Model):
     work_status = models.CharField(
         max_length=100, choices=WORK_STATUS_CHOICES, default='Active'
     )
-    payroll_status = models.CharField(
-        max_length=100, choices=PAYROLL_STATUS_CHOICES
-    )
+    
     gog_igf_status = models.CharField(
         max_length=50, choices=GOG_IGF_STATUS_CHOICES
     )
@@ -349,7 +347,7 @@ class Employee(models.Model):
 
     year_of_current_grade = models.PositiveIntegerField()
 
-    at_post_of_duty = models.CharField(max_length=255)
+    
 
     # =========================
     # QUALIFICATIONS

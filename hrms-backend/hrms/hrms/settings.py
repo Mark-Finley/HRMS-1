@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-l71_l5#oe)@g#q05o!d5!(lyhlm6f6%!7x5!(wa0$ixn=-q9ja
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.18.211"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -117,6 +117,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# Media files (User uploads)
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # AUTH_USER_MODEL = 'accounts.User'
 AUTH_USER_MODEL = 'hrm_manager.User'

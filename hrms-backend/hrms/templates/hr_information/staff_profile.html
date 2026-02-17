@@ -301,17 +301,16 @@
 					<h1 class="profile-name">{{ staff.first_name }} {{ staff.surname }}</h1>
 					<p class="profile-meta mb-2">
 						<i class="fas fa-id-card me-1 text-kath-red"></i>
-						<strong>{{ staff.kath_staff_number }}</strong>
-						<span class="ms-3"><i class="fas fa-barcode me-1"></i>{{ staff.employee_id }}</span>
+						<strong>{{ staff.employee_id }}</strong>
 					</p>
 					<div>
 						<span class="badge-category category-clinical">{{ staff.category_of_profession }}</span>
 						<span class="ms-2">{{ staff.profession }}</span>
 					</div>
 				</div>
-				<div style="text-align: right;">
-					<span class="status-badge status-active"><i class="fas fa-check-circle me-1"></i>{{ staff.work_status }}</span>
-				</div>
+				<div class="staff-profile-pic">
+			<img src="{% if staff.profile_pic %}{{ staff.profile_pic.url }}{% else %}{% static 'img/profile.jpg' %}{% endif %}" alt="Profile Picture" style="width: 80px; height: 80px; border-radius: 0; border: 2px solid #C8102E;">
+		</div>
 			</div>
 		</div>
 
@@ -330,8 +329,8 @@
 							<span class="field-value">{{ staff.employee_id }}</span>
 						</div>
 						<div class="field-row">
-							<span class="field-label">Staff ID Number</span>
-							<span class="field-value">{{ staff.kath_staff_number }}</span>
+							<span class="field-label">Telphone</span>
+							<span class="field-value">{{ staff.contact_number }}</span>
 						</div>
 						<div class="field-row">
 							<span class="field-label">Ghana Card Number</span>
@@ -345,7 +344,12 @@
 							<span class="field-label">Email</span>
 							<span class="field-value">{{ staff.email }}</span>
 						</div>
+						<div class="field-row">
+							<span class="field-label">Nationality</span>
+							<span class="field-value">{{ staff.nationality }}</span>
+						</div>
 					</div>
+					
 
 					<div class="col-md-6">
 						<div class="section-label">Personal Details</div>
@@ -369,10 +373,7 @@
 							<span class="field-label">Date of Birth</span>
 							<span class="field-value">{{ staff.date_of_birth|date:"d M Y" }}</span>
 						</div>
-						<div class="field-row">
-							<span class="field-label">Nationality</span>
-							<span class="field-value">{{ staff.nationality }}</span>
-						</div>
+						
 						<div class="field-row">
 							<span class="field-label">Age</span>
 							<span class="field-value">{{ staff.age }}</span>	
@@ -393,13 +394,10 @@
 					<div class="col-md-6">
 						<div class="section-label">Role & Classification</div>
 						<div class="field-row">
-							<span class="field-label">Category</span>
+							<span class="field-label">Category(specification)</span>
 							<span class="field-value">{{ staff.category_of_profession }}</span>
 						</div>
-						<div class="field-row">
-							<span class="field-label">Category Classification</span>
-							<span class="field-value">{{ staff.category_classification }}</span>
-						</div>
+						
 						<div class="field-row">
 							<span class="field-label">Profession</span>
 							<span class="field-value">{{ staff.profession }}</span>
@@ -416,12 +414,9 @@
 							<span class="field-label">Work Status</span>
 							<span class="field-value">{{ staff.work_status }}</span>
 						</div>
+						
 						<div class="field-row">
-							<span class="field-label">Sal Grouping</span>
-							<span class="field-value">{{ staff.sal_grouping }}</span>
-						</div>
-						<div class="field-row">
-							<span class="field-label">Email</span>
+							<span class="field-label"> Institutional Email</span>
 							<span class="field-value">{{ staff.institutional_email }}</span>
 						</div>
 					</div>
@@ -445,13 +440,10 @@
 							<span class="field-value">{{ staff.unit }}</span>
 						</div>
 						<div class="field-row">
-							<span class="field-label">Post of Duty</span>
-							<span class="field-value">{{ staff.at_post_of_duty }}</span>
+							<span class="field-label">Sal Grouping</span>
+							<span class="field-value">{{ staff.sal_grouping }}</span>
 						</div>
-						<div class="field-row">
-							<span class="field-label">Payroll Status</span>
-							<span class="field-value">{{ staff.payroll_status }}</span>
-						</div>
+						
 						<div class="field-row">
 							<span class="field-label">Year to Retired</span>
 							<span class="field-value">{{ staff.year_to_retired }}</span>

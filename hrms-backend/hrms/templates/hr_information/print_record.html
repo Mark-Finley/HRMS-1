@@ -70,6 +70,18 @@
 			border-radius: 4px;
 			margin-bottom: 15px;
 			border-left: 4px solid #C8102E;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.staff-info {
+			flex: 1;
+		}
+
+		.staff-profile-pic {
+			margin-left: 15px;
+			flex-shrink: 0;
 		}
 
 		.staff-name {
@@ -280,13 +292,15 @@
 
 	<!-- STAFF BIO SECTION -->
 	<div class="staff-bio">
-		<div class="staff-name">{{ staff.first_name }} {{ staff.surname }}</div>
-		<div class="staff-meta">Staff Number: <strong>{{ staff.kath_staff_number }}</strong> | Employee ID: <strong>{{ staff.employee_id }}</strong></div>
-		<div class="staff-meta">Directorate: {{ staff.directorate }} | Profession: {{ staff.profession }}</div>
-		<div style="margin-top: 5px;">
-			<span class="status-inline">✓ {{ staff.work_status }}</span>
+		<div class="staff-info">
+			<div class="staff-name">{{ staff.first_name }} {{ staff.surname }}</div>
+			<div class="staff-meta">Seniority Status: <strong>{{ staff.seniority_status|default:"Junior" }}</strong> | Nationality: <strong>{{ staff.nationality }}</strong></div>
+			<div class="staff-meta">Directorate: {{ staff.directorate }} | Profession: {{ staff.profession }}</div>
+			<div class="staff-meta">Institutional Email: {{ staff.institutional_email }} | Work Status: <span class="status-inline">{{ staff.work_status }}</span></div>
 		</div>
-		<div class="staff-meta">Category: {{ staff.category_of_profession }}</div>
+		<div class="staff-profile-pic">
+			<img src="{% if staff.profile_pic %}{{ staff.profile_pic.url }}{% else %}{% static 'img/profile.jpg' %}{% endif %}" alt="Profile Picture" style="width: 80px; height: 80px; border-radius: 0; border: 2px solid #C8102E;">
+		</div>
 	</div>
 
 	<!-- SECTION 1: IDENTITY & PERSONAL INFORMATION -->
@@ -300,8 +314,8 @@
 					<span class="info-value">{{ staff.employee_id }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Staff Number:</span>
-					<span class="info-value">{{ staff.kath_staff_number }}</span>
+					<span class="info-label">Telephone Number:</span>
+					<span class="info-value">{{ staff.contact_number }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">Ghana Card Number:</span>
@@ -349,40 +363,34 @@
 			<div>
 				<div class="section-subtitle">Role & Classification</div>
 				<div class="info-row">
-					<span class="info-label">Category:</span>
-					<span class="info-value">{{ staff.category_of_profession }}</span>
+					<span class="info-label">Category(Specialisation):</span>
+					<span class="info-value">{{ staff.job_classification }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Profession:</span>
-					<span class="info-value">{{ staff.profession }}</span>
+					<span class="info-label">IGF or GOF</span>
+					<span class="info-value">{{ staff.gog_igf_status }}</span>
 				</div>
 				<div class="info-row">
 					<span class="info-label">Employment Status:</span>
 					<span class="info-value">{{ staff.profession_status }}</span>
 				</div>
-				<div class="info-row">
-					<span class="info-label">Work Status:</span>
-					<span class="info-value">{{ staff.work_status }}</span>
-				</div>
+
 			</div>
 			<div>
 				<div class="section-subtitle">Work Location & Assignment</div>
-				<div class="info-row">
-					<span class="info-label">Directorate:</span>
-					<span class="info-value">{{ staff.directorate }}</span>
-				</div>
 				<div class="info-row">
 					<span class="info-label">Unit:</span>
 					<span class="info-value">{{ staff.unit }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Post of Duty:</span>
-					<span class="info-value">{{ staff.at_post_of_duty }}</span>
+					<span class="info-label">Shelf location</span>
+					<span class="info-value">{{ staff.shelf_location_number|default:"N/A" }}</span>
 				</div>
 				<div class="info-row">
-					<span class="info-label">Payroll Status:</span>
-					<span class="info-value">{{ staff.payroll_status }}</span>
+					<span class="info-label">Shelf number</span>
+					<span class="info-value">{{ staff.shelf_call_number|default:"N/A" }}</span>
 				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -424,28 +432,26 @@
 		</div>
 	</div>
 
-	<!-- SECTION 4: QUALIFICATIONS & CREDENTIALS -->
-	{% if staff.category_of_profession == "Clinical" or staff.academic_qualification or staff.professional_qualification %}
+	<!-- SECTION 4: QUALIFICATIONS -->
 	<div class="section">
-		<div class="section-title">Qualifications & Compliance</div>
+		<div class="section-title">Qualifications & Status</div>
 		<div class="info-row">
-			<span class="info-label">Regulatory Body:</span>
-			<span class="info-value">{{ staff.regulatory_body|default:"Nursing & Midwifery Council" }}</span>
+			<span class="info-label">Academic Qualification:</span>
+			<span class="info-value">{{ staff.academic_qualification|default:"Not Specified" }}</span>
 		</div>
 		<div class="info-row">
-			<span class="info-label">License Number:</span>
-			<span class="info-value">{{ staff.license_number|default:"NMC-12345-GH" }}</span>
+			<span class="info-label">Professional Qualification:</span>
+			<span class="info-value">{{ staff.professional_qualification|default:"Not Specified" }}</span>
 		</div>
 		<div class="info-row">
-			<span class="info-label">Issue Date:</span>
-			<span class="info-value">{{ staff.license_issue_date|default:"2015-06-10" }}</span>
+			<span class="info-label">GoG/IGF Status:</span>
+			<span class="info-value">{{ staff.gog_igf_status|default:"Not Specified" }}</span>
 		</div>
 		<div class="info-row">
-			<span class="info-label">Expiry Date:</span>
-			<span class="info-value">{{ staff.license_expiry_date|default:"2026-06-10" }}</span>
+			<span class="info-label">Seniority Status:</span>
+			<span class="info-value">{{ staff.seniority_status|default:"Not Specified" }}</span>
 		</div>
 	</div>
-	{% endif %}
 
 	<!-- SECTION 5: EMPLOYMENT HISTORY -->
 	<div class="section">
@@ -464,6 +470,32 @@
 			<div class="history-date">2016-08-12</div>
 			<div class="history-title">Initial Appointment</div>
 			<div class="history-subtitle">Grade 8 | Pediatrics Department</div>
+		</div>
+	</div>
+	<!-- Bank and Payroll Information -->
+	<div class="section">
+		<div class="section-title">Bank & Payroll Information</div>
+		<div class="two-column">
+			<div>
+				<div class="info-row">
+					<span class="info-label">Bank Name:</span>
+					<span class="info-value">{{ staff.bank_name|default:"N/A" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Account Number:</span>
+					<span class="info-value">{{ staff.bank_account_number|default:"N/A" }}</span>
+				</div>
+			</div>
+			<div>
+				<div class="info-row">
+					<span class="info-label">Branch:</span>
+					<span class="info-value">{{ staff.bank_branch|default:"N/A" }}</span>
+				</div>
+				<div class="info-row">
+					<span class="info-label">Account Type:</span>
+					<span class="info-value">{{ staff.bank_type|default:"Saving Account" }}</span>
+				</div>
+			</div>
 		</div>
 	</div>
 

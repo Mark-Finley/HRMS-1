@@ -153,7 +153,7 @@
 		</div>
 
 		<!-- FORM START -->
-		<form method="POST" class="profile-card">
+		<form method="POST" class="profile-card" enctype="multipart/form-data">
 			{% csrf_token %}
 
 			<!-- Success/Error Messages -->
@@ -204,12 +204,15 @@
 					
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label class="form-label">Employee ID</label>
-							<input type="text" class="form-control" name="employee_id" value="{{ staff.employee_id }}">
+							<label class="form-label">Profile Picture</label>
+							<input type="file" class="form-control" name="profile_pic" accept="image/*">
+							{% if staff.profile_pic %}
+								<small class="text-muted">Current: <a href="{{ staff.profile_pic.url }}" target="_blank">View</a></small>
+							{% endif %}
 						</div>
 						<div class="col-md-6 mb-3">
-							<label class="form-label">KATH Staff Number</label>
-							<input type="text" class="form-control" name="kath_staff_number" value="{{ staff.kath_staff_number }}">
+							<label class="form-label">Employee ID</label>
+							<input type="text" class="form-control" name="employee_id" value="{{ staff.employee_id }}">
 						</div>
 					</div>
 
@@ -270,8 +273,15 @@
 							<input type="tel" class="form-control" name="contact_number" value="{{ staff.contact_number }}">
 						</div>
 						<div class="col-md-6 mb-3">
-							<label class="form-label">Email</label>
+							<label class="form-label">Personal Email</label>
 							<input type="email" class="form-control" name="email" value="{{ staff.email }}">
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Institutional Email</label>
+							<input type="email" class="form-control" name="institutional_email" value="{{ staff.institutional_email }}">
 						</div>
 					</div>
 				</div>
@@ -283,7 +293,14 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Category of Profession</label>
-							<input type="text" class="form-control" name="category_of_profession" value="{{ staff.category_of_profession }}">
+							<select class="form-select" name="category_of_profession">
+								<option value="">Select...</option>
+								<option value="Medical" {% if staff.category_of_profession == "Medical" %}selected{% endif %}>Medical</option>
+								<option value="Nursing" {% if staff.category_of_profession == "Nursing" %}selected{% endif %}>Nursing</option>
+								<option value="Allied Health" {% if staff.category_of_profession == "Allied Health" %}selected{% endif %}>Allied Health</option>
+								<option value="Administrative" {% if staff.category_of_profession == "Administrative" %}selected{% endif %}>Administrative</option>
+								<option value="Support Staff" {% if staff.category_of_profession == "Support Staff" %}selected{% endif %}>Support Staff</option>
+							</select>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Profession</label>
@@ -330,8 +347,38 @@
 
 					<div class="row">
 						<div class="col-md-6 mb-3">
+							<label class="form-label">Shelf Location Number</label>
+							<input type="text" class="form-control" name="shelf_location_number" value="{{ staff.shelf_location_number }}">
+						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Shelf Call Number</label>
+							<input type="text" class="form-control" name="shelf_call_number" value="{{ staff.shelf_call_number }}">
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
 							<label class="form-label">Payroll Status</label>
-							<input type="text" class="form-control" name="payroll_status" value="{{ staff.payroll_status }}">
+							<select class="form-select" name="payroll_status">
+								<option value="">Select...</option>
+								<option value="On Payroll" {% if staff.payroll_status == "On Payroll" %}selected{% endif %}>On Payroll</option>
+								<option value="Off Payroll" {% if staff.payroll_status == "Off Payroll" %}selected{% endif %}>Off Payroll</option>
+							</select>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label">GoG/IGF Status</label>
+							<select class="form-select" name="gog_igf_status">
+								<option value="">Select...</option>
+								<option value="GOG" {% if staff.gog_igf_status == "GOG" %}selected{% endif %}>GOG</option>
+								<option value="IGF" {% if staff.gog_igf_status == "IGF" %}selected{% endif %}>IGF</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Seniority Status</label>
+							<input type="text" class="form-control" name="seniority_status" value="{{ staff.seniority_status }}">
 						</div>
 						<div class="col-md-6 mb-3">
 							<div class="form-check mt-4">
@@ -392,12 +439,23 @@
 
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label class="form-label">GoG/IGF Status</label>
-							<input type="text" class="form-control" name="gog_igf_status" value="{{ staff.gog_igf_status }}">
+							<label class="form-label">Regulatory Body</label>
+							<input type="text" class="form-control" name="regulatory_body" value="{{ staff.regulatory_body|default:'' }}">
 						</div>
 						<div class="col-md-6 mb-3">
-							<label class="form-label">Seniority Status</label>
-							<input type="text" class="form-control" name="seniority_status" value="{{ staff.seniority_status }}">
+							<label class="form-label">License Number</label>
+							<input type="text" class="form-control" name="license_number" value="{{ staff.license_number|default:'' }}">
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label class="form-label">License Issue Date</label>
+							<input type="date" class="form-control" name="license_issue_date" value="{{ staff.license_issue_date|date:'Y-m-d'|default:'' }}">
+						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label">License Expiry Date</label>
+							<input type="date" class="form-control" name="license_expiry_date" value="{{ staff.license_expiry_date|date:'Y-m-d'|default:'' }}">
 						</div>
 					</div>
 				</div>
@@ -419,20 +477,27 @@
 
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label class="form-label">Bank Account Number</label>
+							<label class="form-label">Account Number</label>
 							<input type="text" class="form-control" name="bank_account_number" value="{{ staff.bank_account_number }}">
 						</div>
 						<div class="col-md-6 mb-3">
-							<label class="form-label">Salary Grouping</label>
-							<input type="text" class="form-control" name="sal_grouping" value="{{ staff.sal_grouping }}">
+							<label class="form-label">Account Type</label>
+							<input type="text" class="form-control" name="bank_type" value="{{ staff.bank_type|default:'' }}">
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6 mb-3">
+							<label class="form-label">Salary Grouping</label>
+							<input type="text" class="form-control" name="sal_grouping" value="{{ staff.sal_grouping }}">
+						</div>
+						<div class="col-md-6 mb-3">
 							<label class="form-label">Job Category</label>
 							<input type="text" class="form-control" name="job_category" value="{{ staff.job_category }}">
 						</div>
+					</div>
+
+					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Job Classification</label>
 							<input type="text" class="form-control" name="job_classification" value="{{ staff.job_classification }}">
